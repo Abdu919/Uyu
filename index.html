@@ -13,6 +13,28 @@
         <input type="text" id="messageInput" placeholder="Type a message...">
         <button onclick="sendMessage()">Send</button>
     </div>
-    <script src="script.js"></script>
+    <script>
+        // script.js
+function sendMessage() {
+    const loader = document.getElementById('loader');
+    const messages = document.querySelector('.messages');
+    const input = document.getElementById('messageInput');
+
+    // Show loader
+    loader.style.display = 'block';
+
+    // Simulate message sending delay
+    setTimeout(() => {
+        // Hide loader
+        loader.style.display = 'none';
+
+        // Add message to chat
+        const message = document.createElement('div');
+        message.textContent = input.value;
+        messages.appendChild(message);
+        input.value = ''; // Clear input
+    }, 2000); // 2-second delay
+}
+    </script>
 </body>
 </html>
