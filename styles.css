@@ -26,6 +26,11 @@ body {
     overflow-y: auto;
 }
 
+.input-area {
+    display: flex;
+    align-items: center;
+}
+
 .loader {
     border: 4px solid #f3f3f3; /* Light grey */
     border-top: 4px solid #3498db; /* Blue */
@@ -33,8 +38,7 @@ body {
     width: 20px; /* Adjusted width */
     height: 20px; /* Adjusted height */
     animation: spin 1s linear infinite;
-    display: inline-block; /* Align with input */
-    vertical-align: middle; /* Center vertically */
+    margin-left: 10px; /* Space between input and loader */
 }
 
 @keyframes spin {
@@ -43,7 +47,7 @@ body {
 }
 
 input[type="text"] {
-    height: 40px; /* Match this height to the loader */
+    height: 40px;
     flex: 1;
     padding: 5px;
     margin-right: 10px;
