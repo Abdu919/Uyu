@@ -8,35 +8,43 @@
 </head>
 <body>
     <div class="chatbox">
-        <div class="messages"></div>
+        <div class="messages" id="messages"></div>
         <div class="input-area">
             <input type="text" id="messageInput" placeholder="Type a message...">
             <button onclick="sendMessage()">Send</button>
-            <div class="loader" id="loader" style="display: none;"></div>
         </div>
     </div>
     <script>
-        // script.js
+          // script.js
 function sendMessage() {
-    const loader = document.getElementById('loader');
-    const messages = document.querySelector('.messages');
+    const messages = document.getElementById('messages');
     const input = document.getElementById('messageInput');
+    
+    // Create message container
+    const messageContainer = document.createElement('div');
+    messageContainer.className = 'message';
 
-    // Show loader
-    loader.style.display = 'block';
+    // Create message element
+    const messageText = document.createElement('div');
+    messageText.textContent = input.value;
+    messageContainer.appendChild(messageText);
+    
+    // Create loader
+    const loader = document.createElement('div');
+    loader.className = 'loader';
+    messageContainer.appendChild(loader);
+    
+    // Append message to messages area
+    messages.appendChild(messageContainer);
+    input.value = ''; // Clear input
 
     // Simulate message sending delay
     setTimeout(() => {
-        // Hide loader
-        loader.style.display = 'none';
-
-        // Add message to chat
-        const message = document.createElement('div');
-        message.textContent = input.value;
-        messages.appendChild(message);
-        input.value = ''; // Clear input
+        loader.remove(); // Remove loader
     }, 2000); // 2-second delay
 }
+
+        
     </script>
 </body>
 </html>
