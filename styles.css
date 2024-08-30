@@ -1,7 +1,7 @@
 /* styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #e5ddd5; /* Background color */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,30 +14,47 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 300px;
+    width: 400px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .messages {
     flex: 1;
     margin-bottom: 10px;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
 }
 
 .message {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     margin-bottom: 10px;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message .bubble {
+    background: #dcf8c6; /* User message bubble */
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 70%;
+    position: relative;
+}
+
+.message.user .bubble {
+    background: #e1ffc7; /* Sender message bubble */
 }
 
 .loader {
     border: 4px solid #f3f3f3; /* Light grey */
     border-top: 4px solid #3498db; /* Blue */
     border-radius: 50%;
-    width: 20px; /* Size of loader */
-    height: 20px; /* Size of loader */
+    width: 15px; /* Loader size */
+    height: 15px; /* Loader size */
     animation: spin 1s linear infinite;
     margin-left: 10px; /* Space between message and loader */
 }
