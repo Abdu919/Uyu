@@ -17,17 +17,7 @@ function sendMessage() {
     messages.appendChild(userMessageContainer);
     input.value = ''; // Clear input
 
-    // Simulate loading for incoming messages
-    setTimeout(() => {
-        addIncomingMessage("Thanks for your message!"); // First response
-        setTimeout(() => {
-            addIncomingMessage("How can I assist you?"); // Second response
-            setTimeout(() => {
-                addIncomingMessage("Feel free to ask anything!"); // Third response
-            }, 1000);
-        }, 1000);
-    }, 1000); // Simulate delay for user message
-}
+    
 
 function addIncomingMessage(text) {
     const messages = document.getElementById('messages');
