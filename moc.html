@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriBalance – MOC</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-blue">
+    <div class="background-overlay"></div>
+    <nav class="navbar">
+        <div class="brand">AgriBalance | MOC</div>
+        <div>
+            <span id="userName"></span>
+            <button id="logoutBtn" class="btn-outline btn-sm">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="mb-4">Import Regulation Panel</h1>
+
+        <!-- Main Tabs -->
+        <div class="main-tab-bar">
+            <button class="main-tab-btn active" data-main-tab="applications">Import Applications</button>
+            <button class="main-tab-btn" data-main-tab="register">Register Importer</button>
+            <button class="main-tab-btn" data-main-tab="market">Importing Market Data</button>
+        </div>
+
+        <!-- ========== APPLICATIONS MAIN TAB ========== -->
+        <div id="main-applications" class="main-tab-content active">
+            <!-- Inner tabs (Pending / Processed) -->
+            <div class="inner-tab-bar">
+                <button class="inner-tab-btn active" data-inner-tab="pending">Pending Applications</button>
+                <button class="inner-tab-btn" data-inner-tab="processed">Processed Applications</button>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-bar glass-card" style="padding: 1rem; margin-bottom: 1rem;">
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div style="min-width: 150px;">
+                        <label>Crop:</label>
+                        <select id="filterCrop" class="glass-input" style="width: auto;">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div style="min-width: 150px;">
+                        <label>Period (Month):</label>
+                        <input type="month" id="filterMonth" class="glass-input" style="width: auto;">
+                    </div>
+                    <button id="applyFilters" class="btn-primary btn-sm">Apply</button>
+                    <button id="resetFilters" class="btn-outline btn-sm">Reset</button>
+                </div>
+            </div>
+
+            <!-- Stats Cards (optional) -->
+            <div class="grid-3 mb-4">
+                <div class="glass-card stat-card">
+                    <h3>Pending Applications</h3>
+                    <h2 id="pendingCount">0</h2>
+                </div>
+                <div class="glass-card stat-card">
+                    <h3>High Conflict</h3>
+                    <h2 id="highConflictCount">0</h2>
+                </div>
+                <div class="glass-card stat-card">
+                    <h3>Approved This Month</h3>
+                    <h2 id="approvedCount">0</h2>
+                </div>
+            </div>
+
+            <!-- Applications Table with Pagination -->
+            <div class="glass-card">
+                <div class="table-responsive">
+                    <table class="glass-table" id="applicationsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Importer</th>
+                                <th>Crop</th>
+                                <th>Requested (T)</th>
+                                <th>Arrival Date</th>
+                                <th>Conflict</th>
+                                <th>Local Supply (T)</th>
+                                <th>Demand (T)</th>
+                                <th>Recommendation</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <!-- Pagination Controls -->
+                <div class="pagination" style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+                    <button id="prevPage" class="btn-outline btn-sm" disabled>Previous</button>
+                    <span id="pageInfo">Page 1</span>
+                    <button id="nextPage" class="btn-outline btn-sm">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== REGISTER IMPORTER MAIN TAB ========== -->
+        <div id="main-register" class="main-tab-content">
+            <div class="glass-card" style="max-width: 600px; margin:0 auto;">
+                <h3 class="mb-4">Register New Importer</h3>
+                <form id="registerImporterForm">
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="glass-input" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="glass-input" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" name="full_name" class="glass-input" required>
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" name="email" class="glass-input" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Phone</label>
+                            <input type="text" name="phone" class="glass-input">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Company Name</label>
+                        <input type="text" name="company_name" class="glass-input" required>
+                    </div>
+                    <button type="submit" class="btn-primary w-100 mt-3">Register Importer</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ========== MARKET DATA MAIN TAB ========== -->
+        <div id="main-market" class="main-tab-content">
+            <div class="grid-2">
+                <!-- Market Snapshot Form -->
+                <div class="glass-card">
+                    <h3 class="mb-3">Add Market Snapshot (Historical)</h3>
+                    <form id="snapshotForm">
+                        <div class="input-group">
+                            <label>Crop</label>
+                            <select name="crop_id" id="snapshotCrop" class="glass-input" required>
+                                <option value="">Select Crop</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Region (leave blank for national)</label>
+                            <input type="text" name="region" class="glass-input" placeholder="e.g., الرياض">
+                        </div>
+                        <div class="input-group">
+                            <label>Period (YYYY-MM)</label>
+                            <input type="month" name="snapshot_period" class="glass-input" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Price (SAR/ton)</label>
+                            <input type="number" step="0.01" name="price" class="glass-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Demand Estimate (tons)</label>
+                            <input type="number" step="0.01" name="demand_estimate" class="glass-input" required>
+                        </div>
+                        <button type="submit" class="btn-primary w-100">Save Snapshot</button>
+                    </form>
+                </div>
+
+                <!-- Market Forecast Form -->
+                <div class="glass-card">
+                    <h3 class="mb-3">Add Market Forecast (Future)</h3>
+                    <form id="forecastForm">
+                        <div class="input-group">
+                            <label>Crop</label>
+                            <select name="crop_id" id="forecastCrop" class="glass-input" required>
+                                <option value="">Select Crop</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Region (leave blank for national)</label>
+                            <input type="text" name="region" class="glass-input" placeholder="e.g., الرياض">
+                        </div>
+                        <div class="input-group">
+                            <label>Forecast Period (YYYY-MM)</label>
+                            <input type="month" name="forecast_period" class="glass-input" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Forecast Demand (tons)</label>
+                            <input type="number" step="0.01" name="forecast_demand" class="glass-input" required>
+                        </div>
+                        <button type="submit" class="btn-primary w-100">Save Forecast</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approve/Cap Modal (unchanged) -->
+    <div id="approveModal" class="modal-overlay hidden">
+        <div class="glass-modal">
+            <div class="modal-header">
+                <h3>Approve with Cap</h3>
+                <button class="btn-close" onclick="closeApproveModal()">&times;</button>
+            </div>
+            <form id="approveForm" class="modal-body">
+                <input type="hidden" name="application_id" id="approveAppId">
+                <div class="input-group">
+                    <label>Approved Quantity (tons)</label>
+                    <input type="number" step="0.01" name="approved_quantity" id="approvedQty" class="glass-input" required>
+                </div>
+                <p class="text-muted text-sm">Leave empty to approve full requested quantity.</p>
+                <button type="submit" class="btn-primary w-100">Submit Decision</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/moc.js"></script>
+</body>
+</html>
